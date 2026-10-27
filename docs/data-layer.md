@@ -48,7 +48,7 @@ The named connection is **`Catalog`**:
 }
 ```
 
-`AddCatalogServices` throws at startup if this value is missing.
+`Program.cs` throws at startup if this value is missing.
 
 `Database:Provider`:
 
@@ -61,7 +61,7 @@ Other `Database` options: `CommandTimeoutSeconds` (1–300), `MigrateOnStartup`,
 
 ## Startup initialization
 
-`InitializeDatabaseAsync`:
+Database startup in `Program.cs`:
 
 1. If `MigrateOnStartup` → `Database.MigrateAsync()` (applies EF migrations).
 2. Else → `EnsureCreatedAsync()` (schema without migration history; useful in some tests).

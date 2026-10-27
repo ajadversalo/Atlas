@@ -4,9 +4,7 @@ Everything that crosses a folder boundary is registered on `IServiceCollection` 
 
 ## Registration entry point
 
-`AddCatalogServices(IConfiguration)` in `Extensions/ServiceCollectionExtensions.cs` is the single registration method. `Program.cs` calls it once.
-
-It registers application services, EF Core, repositories, options, health checks, ProblemDetails, OpenAPI, and CORS.
+`Program.cs` is the composition root. It registers application services, EF Core, repositories, options, health checks, ProblemDetails, OpenAPI, and CORS.
 
 ## Lifetimes
 
@@ -52,7 +50,7 @@ Do not resolve `IProductService` from `AppServices` in new endpoints.
 
 1. Define an interface next to the other abstractions (`ISomethingService` or a repository port).
 2. Implement it under `Application/Services` or `Infrastructure` if it needs I/O.
-3. Register it in `AddCatalogServices` with the correct lifetime.
+3. Register it in `Program.cs` with the correct lifetime.
 4. Inject the interface — never the concrete type — at the call site.
 
 ## Options

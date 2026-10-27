@@ -85,7 +85,7 @@ Stock adjust: `{ "delta": 5 }` (`delta` must not be `0`).
 
 ## Validation
 
-FluentValidation validators are registered with `AddValidatorsFromAssembly` in `AddCatalogServices()`.
+FluentValidation validators are registered with `AddValidatorsFromAssembly` in `Program.cs`.
 
 | Validator | Rules |
 | --- | --- |

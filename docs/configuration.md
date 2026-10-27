@@ -32,7 +32,7 @@ dotnet user-secrets set "ConnectionStrings:Catalog" "Server=localhost,1433;Datab
 ConnectionStrings__Catalog=Data Source=/data/catalog.db
 ```
 
-Missing `Catalog` fails fast in `AddCatalogServices`.
+Missing `Catalog` fails fast in `Program.cs`.
 
 ## `Database` section
 

@@ -17,7 +17,7 @@ flowchart LR
 
 ## Request flow
 
-1. `Program.cs` builds the host, registers DI with `AddCatalogServices`, initializes `AppServices`, migrates and seeds the database.
+1. `Program.cs` builds the host, registers DI, initializes `AppServices`, migrates and seeds the database.
 2. A request hits a route group under `/api/v1`.
 3. `ValidationFilter<T>` runs FluentValidation when the body type has a registered validator.
 4. The endpoint handler receives a service from DI (`IProductService`, `ICategoryService`).
@@ -34,7 +34,6 @@ flowchart LR
 | `Endpoints/` | HTTP maps for products and categories |
 | `Filters/` | `ValidationFilter<T>` |
 | `Middleware/` | `GlobalExceptionHandler` |
-| `Extensions/` | `AddCatalogServices`, `MapApiEndpoints`, database startup |
 | `Domain/Entities/` | `Product`, `Category`, `Entity` |
 | `Domain/Exceptions/` | `AppException` and subclasses |
 | `Domain/StaticServices/` | `Guard`, `Clock`, `SlugGenerator`, `Text` |
@@ -53,14 +52,14 @@ The test project is the only other project. It references the API and does not s
 ## Host bootstrap (`Program.cs`)
 
 ```text
-AddCatalogServices(configuration)
+Register services, options, EF Core, CORS, OpenAPI
 Build()
 AppServices.Initialize(app.Services)
-InitializeDatabaseAsync()          // migrate + optional seed
+Migrate + optional seed
 UseExceptionHandler / HTTPS / CORS
 MapOpenApi + Scalar
 MapHealthChecks("/health")
-MapApiEndpoints()                  // /api/v1/...
+Map /api/v1 category and product endpoints
 ```
 
 `public partial class Program;` exists so `WebApplicationFactory<Program>` can host the app in tests.
